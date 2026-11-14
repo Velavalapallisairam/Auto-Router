@@ -1,0 +1,23 @@
+{
+  "name": "auto-router",
+  "version": "1.2.0",
+  "description": "Autonomous model router with a native dashboard pane: classifies each request locally, picks the cheapest capable model and effort, routes subagents across four specialist tiers plus an independent reviewer, tracks actual usage, and adds a pause gate. Quality floors outrank budget.",
+  "author": {
+    "name": "Velavalapalli Mohana Durga Sai Ram",
+    "url": "https://github.com/Velavalapallisairam"
+  },
+  "license": "MIT",
+  "keywords": [
+    "mod",
+    "function-hooks",
+    "routing",
+    "model-router",
+    "usage",
+    "dashboard",
+    "cost",
+    "savings"
+  ],
+  "types": "./types/index.d.ts",
+  "homepage": "https://github.com/Velavalapallisairam/claude-code-auto-router",
+  "repository": "https://github.com/Velavalapallisairam/claude-code-auto-router"
+}

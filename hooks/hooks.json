@@ -1,0 +1,4 @@
+{
+  "description": "Auto Router: local task classification, model and effort routing at turn.step and agent.spawn, a pause gate at tool.call, usage tracking, and the dashboard pane.",
+  "modules": ["./register.tsx"]
+}

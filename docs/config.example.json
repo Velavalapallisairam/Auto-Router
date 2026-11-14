@@ -1,0 +1,158 @@
+{
+  "$schema": "./config.schema.json",
+  "version": 1,
+  "enabled": true,
+  "autonomous": true,
+  "budgetMode": "balanced",
+  "tiers": {
+    "headChef": {
+      "model": "fable",
+      "fallback": "opus"
+    },
+    "sousChef": {
+      "model": "opus",
+      "fallback": "sonnet"
+    },
+    "lineCook": {
+      "model": "sonnet",
+      "fallback": "haiku"
+    },
+    "prepCook": {
+      "model": "haiku",
+      "fallback": "sonnet"
+    },
+    "reviewer": {
+      "model": "opus"
+    }
+  },
+  "effortBounds": {
+    "simple": "low",
+    "standard": "medium",
+    "complex": "high",
+    "critical": "xhigh",
+    "exceptional": "max"
+  },
+  "effortLimits": {
+    "min": "low",
+    "max": "max"
+  },
+  "routing": {
+    "mainSession": {
+      "routeModel": true,
+      "routeEffort": true,
+      "cacheAware": true
+    },
+    "subagents": {
+      "routeModel": true,
+      "routeEffort": true,
+      "routeTypes": [
+        "general-purpose",
+        "claude"
+      ]
+    },
+    "headChef": {
+      "domains": [
+        "architecture",
+        "security"
+      ],
+      "exceptional": true
+    },
+    "overrides": [],
+    "minConfidenceForPrepCook": 0.6
+  },
+  "riskFloors": {
+    "securitySensitive": {
+      "minTier": "sousChef",
+      "minEffort": "high"
+    },
+    "highImpact": {
+      "minTier": "sousChef",
+      "minEffort": "high"
+    },
+    "criticalImpact": {
+      "minTier": "sousChef",
+      "minEffort": "xhigh"
+    },
+    "ambiguousHighRisk": {
+      "minTier": "sousChef",
+      "minEffort": "high"
+    },
+    "uncertain": {
+      "minTier": "sousChef",
+      "minEffort": "high"
+    }
+  },
+  "guardrails": {
+    "maxParallelAgents": 2,
+    "defaultParallelAgents": 1,
+    "autoEscalateAfterFailures": 2,
+    "maxEscalationsPerTask": 2,
+    "identicalFailureLimit": 2,
+    "independentReview": true,
+    "reviewMode": "remind",
+    "confirmDestructive": false,
+    "respectUserPins": true
+  },
+  "fallback": {
+    "cooldownMinutes": 10
+  },
+  "judge": {
+    "mode": "always",
+    "model": "haiku",
+    "timeoutMs": 6000,
+    "uncertainBelow": 0.75,
+    "minConfidenceToLower": 0.8,
+    "subagents": true
+  },
+  "learning": {
+    "enabled": true,
+    "window": 6,
+    "bumpAfter": 2
+  },
+  "cache": {
+    "ttlMinutes": 5,
+    "switchMargin": 0.15,
+    "returnRisk": 0.5,
+    "writeMultiplier": 1.25
+  },
+  "costModel": {
+    "fable": {
+      "in": 8,
+      "out": 40,
+      "cacheRead": 0.2
+    },
+    "opus": {
+      "in": 4,
+      "out": 20,
+      "cacheRead": 0.2
+    },
+    "sonnet": {
+      "in": 2,
+      "out": 10,
+      "cacheRead": 0.1
+    },
+    "haiku": {
+      "in": 0.1,
+      "out": 0.5,
+      "cacheRead": 0.01
+    }
+  },
+  "ultracode": {
+    "keepEffortFloor": true
+  },
+  "sessions": {
+    "protected": []
+  },
+  "sidePanel": {
+    "enabled": true,
+    "autoOpen": true,
+    "position": "right"
+  },
+  "telemetry": {
+    "enabled": true,
+    "maxEvents": 500,
+    "redactSecrets": true,
+    "promptPreview": true,
+    "historyDays": 35
+  }
+}

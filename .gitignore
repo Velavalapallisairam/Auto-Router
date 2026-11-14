@@ -1,0 +1,16 @@
+# Types the engine writes into a loaded mod's folder
+.claude-plugin/types/
+
+# Tooling
+node_modules/
+*.tsbuildinfo
+*.log
+
+# Operating system and editors
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~

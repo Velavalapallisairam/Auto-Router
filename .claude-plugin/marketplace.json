@@ -1,0 +1,15 @@
+{
+  "name": "auto-router",
+  "owner": {
+    "name": "Velavalapalli Mohana Durga Sai Ram"
+  },
+  "description": "Auto Router: a model and effort router for Claude Code with a dashboard",
+  "plugins": [
+    {
+      "name": "auto-router",
+      "source": "./",
+      "description": "Autonomous model router with a native dashboard pane: local task classification, cheapest capable model and effort, four specialist tiers plus an independent reviewer, actual usage tracking, and a pause gate.",
+      "version": "1.2.0"
+    }
+  ]
+}
