@@ -18,7 +18,7 @@ Auto Router is a mod for [Claude Code](https://claude.com/claude-code). It reads
 Quality comes first. A risk floor is never lowered by a budget setting, and a task is never moved to a cheaper model just because its prompt is short.
 
 ```
-/plugin install auto-router --marketplace Velavalapallisairam/auto-router
+/plugin install auto-router --marketplace Velavalapallisairam/Auto-Router
 ```
 
 ## Contents
@@ -114,7 +114,7 @@ Tested with Claude Code 2.1.321 and 2.1.325 (desktop app) and 2.1.308 (terminal)
 At the prompt of a Claude Code terminal session:
 
 ```
-/plugin install auto-router --marketplace Velavalapallisairam/auto-router
+/plugin install auto-router --marketplace Velavalapallisairam/Auto-Router
 ```
 
 Answer `y` to add the marketplace, then press Enter to accept the user scope.
@@ -122,10 +122,10 @@ Answer `y` to add the marketplace, then press Enter to accept the user scope.
 From a shell:
 
 ```bash
-claude plugin install auto-router --marketplace Velavalapallisairam/auto-router
+claude plugin install auto-router --marketplace Velavalapallisairam/Auto-Router
 ```
 
-In the desktop app, where `/plugin` does not run: click **+** next to the prompt box, then **Plugins**, **Add marketplace** with `Velavalapallisairam/auto-router`, then **Add plugin**.
+In the desktop app, where `/plugin` does not run: click **+** next to the prompt box, then **Plugins**, **Add marketplace** with `Velavalapallisairam/Auto-Router`, then **Add plugin**.
 
 ### 2. Start a session
 
@@ -146,8 +146,8 @@ The dashboard opens by itself at session start. `/auto-router` opens it again if
 ### From a local folder
 
 ```bash
-git clone https://github.com/Velavalapallisairam/auto-router
-claude plugin marketplace add ./auto-router
+git clone https://github.com/Velavalapallisairam/Auto-Router
+claude plugin marketplace add ./Auto-Router
 claude plugin install auto-router@auto-router --scope user
 ```
 

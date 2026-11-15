@@ -17,8 +17,8 @@ Check a log or a config file for anything private before you paste it. The route
 Clone the repository and install it from the folder. Claude Code reads it in place:
 
 ```bash
-git clone https://github.com/Velavalapallisairam/auto-router
-claude plugin marketplace add ./auto-router
+git clone https://github.com/Velavalapallisairam/Auto-Router
+claude plugin marketplace add ./Auto-Router
 claude plugin install auto-router@auto-router --scope user
 ```
 
