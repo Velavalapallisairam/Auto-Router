@@ -3,10 +3,10 @@
 </p>
 
 <p align="center">
-  <a href="CHANGELOG.md"><img alt="Version 1.2.0" src="https://img.shields.io/badge/version-1.2.0-d97757"></a>
+  <a href="CHANGELOG.md"><img alt="Version 1.2.1" src="https://img.shields.io/badge/version-1.2.1-d97757"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
   <img alt="Claude Code 2.1.287 or later" src="https://img.shields.io/badge/Claude%20Code-%E2%89%A5%202.1.287-8a63d2">
-  <img alt="306 tests" src="https://img.shields.io/badge/tests-306-30d158">
+  <img alt="309 tests" src="https://img.shields.io/badge/tests-309-30d158">
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-none-lightgrey">
   <a href="CONTRIBUTING.md"><img alt="Contributions welcome" src="https://img.shields.io/badge/contributions-welcome-ff9f0a"></a>
 </p>
@@ -282,7 +282,8 @@ Not counted: a different model would not have used exactly the same tokens, and 
 
 - Pause refuses each new tool call before it runs. It does not stop a command already running and does not undo finished work.
 - The router never approves a tool call, never sets a permission mode and never edits `settings.json`. Claude Code's permission rules decide, as before.
-- `guardrails.confirmDestructive` asks before a destructive or production command that a rule would allow. It only ever tightens.
+- `guardrails.confirmDestructive` asks before a destructive or production command that a rule would allow. It only ever tightens. It reads common spellings of a command, not every way a shell can hide one, so it is an extra prompt, not a security boundary: Claude Code's permission rules are that.
+- A change the model makes to a guardrail, a risk floor, the models behind the tiers, the judge or the session protection is always put to you first, whether it names the setting or asks in words.
 - Activity is sanitized metadata: a file's name, the start of a command with credentials masked, an MCP tool's name.
 - Everything the mod writes is under `~/.claude/auto-router`. Nothing is sent anywhere except the model requests Claude Code already makes, plus the short judge request.
 
@@ -319,7 +320,7 @@ flowchart LR
 | `agents/` | The five specialist agents |
 | `skills/routing/` | How Claude changes the configuration when asked in words |
 | `types/index.d.ts` | The type contract for everything kept in state |
-| `tests/` | 306 tests that fire mocked events through the real hooks. No model is called. |
+| `tests/` | 309 tests that fire mocked events through the real hooks. No model is called. |
 | `docs/` | Images, and an example configuration |
 
 The engine modules are pure: they take values and return values, with no access to the engine. Only `register.tsx` touches files, the clock or a model.

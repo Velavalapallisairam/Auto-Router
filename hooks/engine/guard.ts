@@ -62,8 +62,14 @@ export function classifyFailure(tool: string, errorText: string): Failure {
 }
 
 const DESTRUCTIVE: readonly (readonly [RegExp, string])[] = [
-  [/\brm\s+(?:-[a-z]*r[a-z]*f?|-[a-z]*f[a-z]*r)\b|\bremove-item\b[^|;&]*-recurse\b|\brmdir\s+\/s\b|\bdel\s+\/s\b|\brd\s+\/s\b/i, 'recursive delete'],
-  [/\bgit\s+push\b[^|;&]*(?:--force\b|--force-with-lease\b|\s-f\b)|\bgit\s+reset\s+--hard\b|\bgit\s+clean\s+-[a-z]*f|\bgit\s+branch\s+-D\b/i, 'git history or worktree loss'],
+  [
+    /\brm\b[^|;&\n]*\s(?:-[a-z]*r[a-z]*|--recursive)\b|\b(?:remove-item|ri|rm|del|erase|rd|rmdir)\b[^|;&\n]*\s-r(?:e(?:c(?:u(?:r(?:se?)?)?)?)?)?\b|\b(?:rmdir|rd|del|erase)\b[^|;&\n]*\s\/s\b/i,
+    'recursive delete',
+  ],
+  [
+    /\bgit\s+push\b[^|;&\n]*(?:--force(?:-with-lease|-if-includes)?\b|\s-[a-z]*f[a-z]*\b|\s\+\S)|\bgit\s+reset\s+--hard\b|\bgit\s+clean\s+(?:-[a-z]*f|--force)|\bgit\s+branch\s+(?:-D\b|-d\s+--force\b|--delete\s+--force\b)/i,
+    'git history or worktree loss',
+  ],
   [/\bdrop\s+(?:table|database|schema|index)\b|\btruncate\s+table\b|\bdelete\s+from\s+\w+\s*(?:;|$)/i, 'destructive SQL'],
   [/\b(?:prisma\s+migrate\s+(?:deploy|reset)|alembic\s+(?:upgrade|downgrade)|supabase\s+db\s+(?:reset|push)|knex\s+migrate:(?:latest|rollback)|rake\s+db:(?:migrate|drop|reset)|flyway\s+(?:migrate|clean))\b/i, 'database change'],
   [/\b(?:terraform|tofu|pulumi)\s+(?:apply|destroy|up)\b|\bkubectl\s+(?:delete|apply|replace|rollout)\b|\bhelm\s+(?:upgrade|install|uninstall|delete|rollback)\b/i, 'infrastructure change'],

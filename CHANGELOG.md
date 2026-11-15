@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 (2026-11-15)
+
+- Security: the confirm gate on the configure tool now covers a change asked for in words (`action: "request"`), not only `set`, and treats anything not plainly read-only as sensitive.
+- Security: changes to `tiers` (the models behind the risk floors) and `judge` (the thresholds that trigger the uncertain floor) are now put to the person.
+- The destructive-command check reads more spellings: `rm -r` and `--recursive`, PowerShell `-r`/`-rec`, `/s` anywhere in a cmd delete, `+refspec` and combined-flag force pushes. It remains a best-effort extra prompt; Claude Code's permission rules are the boundary.
+
 ## 1.2.0 (2026-11-14)
 
 - Home shows the task as labelled fields: task, task rating, the lead model, supporting agents, execution order and final result. The Status card is gone; plan limits are on Usage and the pause gate on Safety.

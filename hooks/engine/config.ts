@@ -628,7 +628,12 @@ export function applyPatches(config: RouterConfig, patches: readonly ConfigPatch
   return { isValid: true, config: checked.config, changes, errors: [] }
 }
 
-/** Settings that weaken a guardrail or the session protection: a model's change to one is always put to the person. */
+/**
+ * Settings that can weaken a guardrail or the session protection: a model's
+ * change to one is always put to the person. `tiers` is here because a floor
+ * names a tier, and the tier's model is what the floor sends; `judge` because
+ * its thresholds decide when the uncertain floor applies.
+ */
 export const SENSITIVE_PATHS: readonly string[] = [
   'enabled',
   'riskFloors',
@@ -636,6 +641,8 @@ export const SENSITIVE_PATHS: readonly string[] = [
   'sessions',
   'telemetry.redactSecrets',
   'routing.headChef',
+  'tiers',
+  'judge',
 ]
 
 export function isSensitivePath(path: string): boolean {

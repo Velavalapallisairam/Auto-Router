@@ -1644,6 +1644,27 @@ function rememberAgent(agent: AgentRec): void {
   mark('agents')
 }
 
+/**
+ * Whether a configure call would change a sensitive setting. Every action that
+ * writes is read: `set` by its paths, `request` by the patches its words turn
+ * into. An action that is not plainly read-only counts as sensitive.
+ */
+function isConfigSensitive(input: unknown): boolean {
+  if (!isRecord(input)) return true
+  const action = input.action === undefined ? 'get' : input.action
+  if (action === 'get') return false
+  if (action === 'set') {
+    if (!Array.isArray(input.changes)) return true
+    return input.changes.some(change => !isRecord(change) || typeof change.path !== 'string' || isSensitivePath(change.path))
+  }
+  if (action === 'request') {
+    if (typeof input.request !== 'string') return true
+    const understood = parseRequest(input.request, rt.cfg)
+    return understood.isUnderstood && understood.patches.some(patch => isSensitivePath(patch.path))
+  }
+  return true
+}
+
 /** The configure tool: the model's way to change settings a person asked for in words. */
 async function configure($: EngineInterface, input: Readonly<Record<string, unknown>>): Promise<string> {
   const action = typeof input.action === 'string' ? input.action : 'get'
@@ -2075,9 +2096,8 @@ export const register: Register = on => {
         await flush($)
       }
       if (decided.decision === 'deny') return decided
-      if (e.tool === 'mcp__auto-router__configure' && isRecord(e.input) && e.input.action === 'set' && Array.isArray(e.input.changes)) {
-        const isSensitive = e.input.changes.some(change => isRecord(change) && typeof change.path === 'string' && isSensitivePath(change.path))
-        if (isSensitive) return { decision: 'ask', reason: 'Auto Router: this changes a guardrail, a risk floor or the session protection. Confirm it.' }
+      if (e.tool === 'mcp__auto-router__configure' && isConfigSensitive(e.input)) {
+        return { decision: 'ask', reason: 'Auto Router: this changes a guardrail, a risk floor, the models behind them or the session protection. Confirm it.' }
       }
       if (decided.decision === 'allow' && rt.cfg.guardrails.confirmDestructive && rt.core.session.passive === undefined && e.approver !== undefined) {
         const danger = destructiveMatch(e.tool, e.input)
