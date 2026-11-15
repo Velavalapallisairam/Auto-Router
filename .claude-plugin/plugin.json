@@ -18,6 +18,6 @@
     "savings"
   ],
   "types": "./types/index.d.ts",
-  "homepage": "https://github.com/Velavalapallisairam/claude-code-auto-router",
-  "repository": "https://github.com/Velavalapallisairam/claude-code-auto-router"
+  "homepage": "https://github.com/Velavalapallisairam/auto-router",
+  "repository": "https://github.com/Velavalapallisairam/auto-router"
 }
