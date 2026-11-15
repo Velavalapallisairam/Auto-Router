@@ -87,10 +87,14 @@ const HIGH_IMPACT_MCP = /(?:^|_)(?:delete|drop|destroy|remove|reset|purge|merge|
  */
 export function destructiveMatch(tool: string, input: unknown): string | undefined {
   if (tool === 'Bash' || tool === 'PowerShell') {
-    const command =
+    const raw =
       typeof input === 'object' && input !== null && typeof (input as { command?: unknown }).command === 'string'
         ? ((input as { command: string }).command)
         : ''
+    // A line continued with `\` (sh) or a backtick (PowerShell) or `^` (cmd) is one
+    // command: join it, so its flags are read with it. A plain newline still
+    // separates commands.
+    const command = raw.replace(/[\\`^][ \t]*\r?\n/g, ' ')
     for (const [pattern, label] of DESTRUCTIVE) {
       if (pattern.test(command)) return label
     }

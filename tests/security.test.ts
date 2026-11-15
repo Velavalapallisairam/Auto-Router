@@ -52,6 +52,13 @@ describe('destructive commands', () => {
     ['git push --force-if-includes origin main', 'git history or worktree loss'],
     ['git clean --force -d', 'git history or worktree loss'],
     ['git branch --delete --force old', 'git history or worktree loss'],
+    // A command continued onto the next line is read as one.
+    ['rm \\\n  -rf build', 'recursive delete'],
+    ['Remove-Item .\\build `\r\n  -Recurse', 'recursive delete'],
+    ['rmdir build ^\n /s /q', 'recursive delete'],
+    ['git push origin \\\n  --force', 'git history or worktree loss'],
+    // Separate commands on separate lines stay separate.
+    ['rm notes.txt\nls -r', undefined],
     // Ordinary commands are left alone.
     ['rm notes.txt', undefined],
     ['git push -u origin main', undefined],
