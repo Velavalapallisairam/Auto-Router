@@ -5,6 +5,7 @@
 - Security: the confirm gate on the configure tool now covers a change asked for in words (`action: "request"`), not only `set`, and treats anything not plainly read-only as sensitive.
 - Security: changes to `tiers` (the models behind the risk floors) and `judge` (the thresholds that trigger the uncertain floor) are now put to the person.
 - The destructive-command check reads more spellings: `rm -r` and `--recursive`, PowerShell `-r`/`-rec`, `/s` anywhere in a cmd delete, `+refspec` and combined-flag force pushes. It remains a best-effort extra prompt; Claude Code's permission rules are the boundary.
+- A command continued onto the next line with `\`, a backtick or `^` is read as one by the destructive-command check.
 
 ## 1.2.0 (2026-11-14)
 
